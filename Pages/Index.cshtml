@@ -1,0 +1,23 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Chuck Norris";
+
+}
+
+@{
+    var client = new HttpClient();
+    var result = await client.GetAsync("http://api.icndb.com/jokes/random?exclude=[explicit]");
+    var json = result.Content.ReadAsStringAsync().Result;
+    // Needs to use JSON
+    var joke =  (json.Split('"')[11]);
+}
+
+<html>
+    <title>Chuck Norris</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <img src="/static/chuck.png" width="295" height="303" alt="Chuck Norris" /> 
+    <h4>@(joke)</h4>
+    <small>Running on a Host named @(System.Net.Dns.GetHostName())</small>
+    
+</html>
