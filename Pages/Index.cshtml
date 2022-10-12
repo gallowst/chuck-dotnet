@@ -7,10 +7,10 @@
 
 @{
     var client = new HttpClient();
-    var result = await client.GetAsync("http://api.icndb.com/jokes/random?exclude=[explicit]");
+    var result = await client.GetAsync("https://api.chucknorris.io/jokes/random?category=dev");
     var json = result.Content.ReadAsStringAsync().Result;
     // Needs to use JSON
-    var joke =  (json.Split('"')[11]);
+    var joke =  (json.Split('"')[27]);
 }
 
 <html>
