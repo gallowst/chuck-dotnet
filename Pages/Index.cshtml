@@ -1,14 +1,14 @@
-﻿@page
+@page
 @model IndexModel
+@using System.Net.Http
+@using System.Text.Json.Nodes
+
 @{
     ViewData["Title"] = "Chuck Norris";
 
 }
 
 @{
-   using System.Net.Http;
-   using System.Text.Json.Nodes;
-
     var client = new HttpClient();
     var result = await client.GetStringAsync("https://api.chucknorris.io/jokes/random?category=dev");
     var jsonString = result.ToString();
