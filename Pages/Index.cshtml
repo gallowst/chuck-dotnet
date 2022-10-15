@@ -7,10 +7,11 @@
 
 @{
     var client = new HttpClient();
-    var result = await client.GetAsync("https://api.chucknorris.io/jokes/random?category=dev");
-    var json = result.Content.ReadAsStringAsync().Result;
-    // Needs to use JSON
-    var joke =  (json.Split('"')[27]);
+	var result = await client.GetStringAsync("https://api.chucknorris.io/jokes/random?category=dev");
+	var jsonString = result.ToString();
+	JsonNode jokeNode = JsonNode.Parse(jsonString)!;
+	// Use the Value Node to display the Joke
+    var joke = (jokeNode!["value"]);
 }
 
 <html>
