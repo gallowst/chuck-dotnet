@@ -19,8 +19,8 @@ variables:
   value: 'Chuck-Dotnet'
 - name: ResourceGroupName
   value: 'rg-webapp'
-- name: buildArgs
-  value: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(Build.ArtifactStagingDirectory)"'
+- name: buildConfiguration
+  value: 'Release'
 
 pool:
   vmImage: $(vmImageName)
@@ -46,19 +46,24 @@ stages:
         feedsToUse: 'config'
         noCache: false
     
-    - task: VSBuild@1
-      displayName: 'VSBuild: Chuck'
+    - task: DotNetCoreCLI@2
       inputs:
-        solution: '**/chuck-dotnet.csproj'
-        msbuildArgs: $(buildArgs)
-        platform: 'AnyCPU'
-        configuration: 'Release'
+        command: 'build'
+        projects: '**/*.csproj'
+        arguments: '--configuration $(BuildConfiguration)'
+      displayName: 'dotnet build $(BuildConfiguration)'
+
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: publish
+        publishWebProjects: True
+        arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+        zipAfterPublish: True
 
     - task: PublishPipelineArtifact@1
-      displayName: 'Publish: Build Artifacts'
       inputs:
         targetPath: '$(Build.ArtifactStagingDirectory)' 
-        artifactName: drop
+        artifactName: '$(appName)'
 
     - task: AzureRmWebAppDeployment@4
       displayName: 'Deploy WebApp: $(appName)'
@@ -69,5 +74,5 @@ stages:
         WebAppName: $(WebAppName)
         ResourceGroupName: $(ResourceGroupName)
         deployToSlotOrASE: false
-        package: '$(Build.ArtifactStagingDirectory)\**\chuck-dotnet.zip'
+        package: '$(Build.ArtifactStagingDirectory)\**\*.zip'
         enableXmlTransform: false
