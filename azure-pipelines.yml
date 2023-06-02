@@ -6,27 +6,19 @@ trigger:
     exclude:
     - README.md
 
-parameters:
-  - name: slot
-    displayName: Slot
-    default: production
-    values:
-      - production
-      - dev
-
 variables:
 - name: vmImageName
   value: 'windows-2019'
 - name: workingDirectory
   value: '/'
 - name: WebAppName
-  value: 'app-aux-webapi-d-ne01'
+  value: 'webapp-gallows'
 - name: azureSubscription
-  value: 'scon-aux-subscription-03'
+  value: 'AzDo'
 - name: appName
   value: 'Chuck-Dotnet'
 - name: ResourceGroupName
-  value: 'rg-webapp-ap'
+  value: 'rg-webapp'
 - name: buildArgs
   value: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(Build.ArtifactStagingDirectory)"'
 
@@ -77,7 +69,6 @@ stages:
         appType: 'webApp'
         WebAppName: $(WebAppName)
         ResourceGroupName: $(ResourceGroupName)
-        deployToSlotOrASE: true
-        SlotName: '${{ parameters.slot }}'
+        deployToSlotOrASE: false
         package: '$(Build.ArtifactStagingDirectory)\**\chuck-dotnet.zip'
         enableXmlTransform: false
