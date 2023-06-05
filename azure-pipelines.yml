@@ -8,7 +8,7 @@ trigger:
 
 variables:
 - name: vmImageName
-  value: 'windows-2022'
+  value: 'ubuntu-latest'
 - name: workingDirectory
   value: '/'
 - name: WebAppName
