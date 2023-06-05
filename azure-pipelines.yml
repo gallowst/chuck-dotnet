@@ -74,5 +74,5 @@ stages:
         WebAppName: $(WebAppName)
         ResourceGroupName: $(ResourceGroupName)
         deployToSlotOrASE: false
-        package: '$(Build.ArtifactStagingDirectory)\**\*.zip'
+        package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
         enableXmlTransform: false
