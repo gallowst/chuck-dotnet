@@ -12,13 +12,13 @@ variables:
 - name: workingDirectory
   value: '/'
 - name: WebAppName
-  value: 'webapp-gallows'
+  value: 'digitalchuck'
 - name: azureSubscription
   value: 'AzDo'
 - name: appName
   value: 'Chuck-Dotnet'
 - name: ResourceGroupName
-  value: 'rg-webapp'
+  value: 'sg-webapp'
 - name: buildConfiguration
   value: 'Release'
 
