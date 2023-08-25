@@ -12,7 +12,7 @@ variables:
 - name: WebAppName
   value: 'digitalnorris'
 - name: azureSubscription
-  value: 'AzDo'
+  value: 'scon-aux03'
 - name: ResourceGroupName
   value: 'sg-digitalnorris'
 - name: buildConfiguration
