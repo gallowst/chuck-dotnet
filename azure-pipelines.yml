@@ -34,27 +34,37 @@ stages:
       vmImage: $(vmImageName)
 
     steps:
-    - task: NuGetCommand@2
-      inputs:
-        command: 'restore'
-        feedsToUse: 'config'
-        noCache: false
+    # - task: NuGetCommand@2
+    #   inputs:
+    #     command: 'restore'
+    #     feedsToUse: 'config'
+    #     noCache: false
     
-    - task: DotNetCoreCLI@2
-      inputs:
-        command: 'build'
-        projects: '**/*.csproj'
-        arguments: '--configuration $(BuildConfiguration)'
-        workingDirectory: $(Agent.BuildDirectory)/src
-      displayName: 'dotnet build $(BuildConfiguration)'
+    # - task: DotNetCoreCLI@2
+    #   inputs:
+    #     command: 'build'
+    #     projects: '**/*.csproj'
+    #     arguments: '--configuration $(BuildConfiguration)'
+    #     workingDirectory: $(Agent.BuildDirectory)/src
+    #   displayName: 'dotnet build $(BuildConfiguration)'
 
-    - task: DotNetCoreCLI@2
-      inputs:
-        command: publish
-        publishWebProjects: True
-        arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-        zipAfterPublish: True
-        workingDirectory: $(Agent.BuildDirectory)/src
+    # - task: DotNetCoreCLI@2
+    #   inputs:
+    #     command: publish
+    #     publishWebProjects: True
+    #     arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    #     zipAfterPublish: True
+    #     workingDirectory: $(Agent.BuildDirectory)/src
+
+    - bash: |
+        cd ./src
+        dotnet build --configuration Release
+        dotnet publish -c Release -o ../chuck
+        cd ../chuck/
+        zip -r $(Build.ArtifactStagingDirectory)/chuck.zip .
+      displayName: 'Build and Zip'
+      env:
+        AZURE_DEVOPS_EXT_PAT: $(System.AccessToken)
 
     - task: PublishPipelineArtifact@1
       inputs:
