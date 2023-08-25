@@ -9,16 +9,12 @@ trigger:
 variables:
 - name: vmImageName
   value: 'ubuntu-latest'
-- name: workingDirectory
-  value: '/'
 - name: WebAppName
   value: 'digitalchuck'
 - name: azureSubscription
   value: 'AzDo'
-- name: appName
-  value: 'Chuck-Dotnet'
 - name: ResourceGroupName
-  value: 'sg-webapp'
+  value: 'sg-digitalchuck'
 - name: buildConfiguration
   value: 'Release'
 
@@ -31,15 +27,13 @@ stages:
 
   jobs:
   - job: Build
-    displayName: Build
+    displayName: Build and Publish Chuck
     workspace:
       clean: all
-
     pool:
       vmImage: $(vmImageName)
 
     steps:
-
     - task: NuGetCommand@2
       inputs:
         command: 'restore'
@@ -51,6 +45,7 @@ stages:
         command: 'build'
         projects: '**/*.csproj'
         arguments: '--configuration $(BuildConfiguration)'
+        workingDirectory: $(Agent.BuildDirectory)/src
       displayName: 'dotnet build $(BuildConfiguration)'
 
     - task: DotNetCoreCLI@2
@@ -59,14 +54,15 @@ stages:
         publishWebProjects: True
         arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
         zipAfterPublish: True
+        workingDirectory: $(Agent.BuildDirectory)/src
 
     - task: PublishPipelineArtifact@1
       inputs:
         targetPath: '$(Build.ArtifactStagingDirectory)' 
-        artifactName: '$(appName)'
+        artifactName: '$(WebAppName)'
 
     - task: AzureRmWebAppDeployment@4
-      displayName: 'Deploy WebApp: $(appName)'
+      displayName: 'Deploy WebApp: $(WebAppName)'
       inputs:
         ConnectionType: 'AzureRM'
         azureSubscription: $(azureSubscription)
