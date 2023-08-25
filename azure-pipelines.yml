@@ -10,11 +10,11 @@ variables:
 - name: vmImageName
   value: 'ubuntu-latest'
 - name: WebAppName
-  value: 'digitalchuck'
+  value: 'digitalnorris'
 - name: azureSubscription
   value: 'AzDo'
 - name: ResourceGroupName
-  value: 'sg-digitalchuck'
+  value: 'sg-digitalnorris'
 - name: buildConfiguration
   value: 'Release'
 
