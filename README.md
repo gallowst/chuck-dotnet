@@ -22,6 +22,7 @@ sudo apt-get install -y dotnet-sdk-7.0
 
 ~~~bash
 # Manual build and deploy
+git clone ...
 # Build the app from the source directory
 cd ./src
 dotnet build --configuration Release
@@ -30,5 +31,6 @@ dotnet publish -c Release -o ../chuck
 # Prepare for deployment by ensuring the zip is created from the correct location
 cd ../chuck/
 zip -r ../chuck.zip .
-az webapp deploy -g ... -n ... --src-path ../chuck.zip
+az webapp config appsettings set --resource-group "" --name "" --settings WEBSITE_RUN_FROM_PACKAGE="1"
+az webapp deployment source config-zip --resource-group "" --name "" --src ./chuck.zip
 ~~~
