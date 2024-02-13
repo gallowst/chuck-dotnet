@@ -5,16 +5,26 @@
 
 @{
     ViewData["Title"] = "Chuck Norris";
-
 }
 
 @{
     var client = new HttpClient();
     var result = await client.GetStringAsync("https://api.chucknorris.io/jokes/random?category=dev");
+    var result2 = await client.GetStringAsync("https://api.chucknorris.io/jokes/random?category=science");
+    var result3 = await client.GetStringAsync("https://api.chucknorris.io/jokes/random?category=history");
     var jsonString = result.ToString();
     JsonNode jokeNode = JsonNode.Parse(jsonString)!;
     // Use the Value Node to display the Joke
     var joke = (jokeNode!["value"]);
+    
+    var jsonString2 = result2.ToString();
+    JsonNode jokeNode2 = JsonNode.Parse(jsonString2)!;
+    var joke2 = (jokeNode2!["value"]);
+
+    var jsonString3 = result2.ToString();
+    JsonNode jokeNode3 = JsonNode.Parse(jsonString3)!;
+    var joke3 = (jokeNode3!["value"]);
+
 }
 <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel">
     <div class="carousel-indicators">
@@ -30,7 +40,6 @@
             <div class="container">
                 <div class="carousel-caption text-start">
                     <h6>@(joke)</h6>
-                    <small>Running on a Host named @(System.Net.Dns.GetHostName())</small>
                 </div>
             </div>
         </div>
@@ -40,11 +49,9 @@
             <div class="container">
                 <div class="carousel-caption text-start">
                     <h6>@(joke)</h6>
-                    <small>Running on a Host named @(System.Net.Dns.GetHostName())</small>
                 </div>
                     <div class="carousel-caption text-start">
-                    <h6>@(joke)</h6>
-                    <small>Running on a Host named @(System.Net.Dns.GetHostName())</small>
+                    <h6>@(joke2)</h6>
                 </div>
             </div>
         </div>
@@ -53,8 +60,7 @@
                 alt="Tree">
             <div class="container">
                 <div class="carousel-caption text-start">
-                    <h6>@(joke)</h6>
-                    <small>Running on a Host named @(System.Net.Dns.GetHostName())</small>
+                    <h6>@(joke3)</h6>
                 </div>
             </div>
         </div>
