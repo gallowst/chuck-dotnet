@@ -13,15 +13,17 @@
     var result2 = await client.GetStringAsync("https://api.chucknorris.io/jokes/random?category=science");
     var result3 = await client.GetStringAsync("https://api.chucknorris.io/jokes/random?category=history");
     var jsonString = result.ToString();
+    var jsonString2 = result2.ToString();
+    var jsonString3 = result3.ToString();
+
+    // Joke 1
     JsonNode jokeNode = JsonNode.Parse(jsonString)!;
     // Use the Value Node to display the Joke
     var joke = (jokeNode!["value"]);
-    
-    var jsonString2 = result2.ToString();
+    // Joke 2
     JsonNode jokeNode2 = JsonNode.Parse(jsonString2)!;
     var joke2 = (jokeNode2!["value"]);
-
-    var jsonString3 = result2.ToString();
+    // Joke 3
     JsonNode jokeNode3 = JsonNode.Parse(jsonString3)!;
     var joke3 = (jokeNode3!["value"]);
 
@@ -36,7 +38,7 @@
     <div class="carousel-inner">
         <div class="carousel-item active">
             <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg" class="d-block w-100"
-                alt="Tree">
+                alt="Dev">
             <div class="container">
                 <div class="carousel-caption text-start">
                     <h6>@(joke)</h6>
@@ -45,19 +47,16 @@
         </div>
         <div class="carousel-item">
             <img src="https://cdn.pixabay.com/photo/2016/10/20/18/35/earth-1756274_1280.jpg" class="d-block w-100"
-                alt="Tree">
+                alt="Science">
             <div class="container">
                 <div class="carousel-caption text-start">
-                    <h6>@(joke)</h6>
-                </div>
-                    <div class="carousel-caption text-start">
                     <h6>@(joke2)</h6>
                 </div>
             </div>
         </div>
         <div class="carousel-item">
             <img src="https://cdn.pixabay.com/photo/2018/08/14/13/23/ocean-3605547_1280.jpg" class="d-block w-100"
-                alt="Tree">
+                alt="History">
             <div class="container">
                 <div class="carousel-caption text-start">
                     <h6>@(joke3)</h6>
