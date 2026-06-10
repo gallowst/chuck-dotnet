@@ -8,15 +8,7 @@ This repository provides a sample .Net 6.0 ASP application implemented using the
 
 ### Dotnet install
 
-- On Debian
-
-~~~bash
-wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
-sudo dpkg -i packages-microsoft-prod.deb
-rm packages-microsoft-prod.deb
-sudo apt-get update
-sudo apt-get install -y dotnet-sdk-7.0
-~~~
+- On [Debian](https://learn.microsoft.com/en-gb/dotnet/core/install/linux-debian?tabs=dotnet10)
 
 ### Manual Build and Deploy
 
